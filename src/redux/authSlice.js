@@ -23,6 +23,3 @@ export const authSlice = createSlice({
 export const { setToken, clearToken } = authSlice.actions;
 
 export default authSlice.reducer;
-
-// export const selectUsername = (state) => state.auth.username;
-// export const selectAdmin = (state) => state.auth.admin;

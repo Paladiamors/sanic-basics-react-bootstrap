@@ -1,8 +1,8 @@
-import store from "./redux/store.js";
+import store from "../redux/store.js";
 // import fetch from "node-fetch";
-import { setToken, clearToken } from "./redux/authSlice.js";
+import { setToken, clearToken } from "../redux/authSlice.js";
 
-// TODO: make the dev prefix configurable
+// make the dev prefix configurable
 const devPrefix = "http://localhost:4000";
 
 // parses the set cookie component from a response and returns
@@ -20,7 +20,7 @@ function parseCookies(response) {
 
 // if auth tokens are set, automatically adds them when in dev mode
 // otherwise just passes through a fetch request
-export default function fetch_(input, init = {}) {
+export default async function fetch_(input, init = {}) {
   if (process.env.NODE_ENV === "production") {
     return fetch(input, init);
   } else {
@@ -36,11 +36,28 @@ export default function fetch_(input, init = {}) {
   }
 }
 
+export async function fetchResponse(url, data) {
+  let body;
+  if (data instanceof Object) {
+    body = JSON.stringify(data);
+  } else {
+    body = data;
+  }
+  return fetch_(url, {
+    method: "POST",
+    body: body,
+  });
+}
+
+export async function fetchJson(url, data) {
+  return fetchResponse(url, data).then((response) => response.json());
+}
+
 // use this to perform a login into the system
 // the cookie is then saved to the store
 // use this for testing purposes
 export function login(url, email, password) {
-  fetch(url, {
+  fetch_(url, {
     method: "POST",
     body: JSON.stringify({ email, password }),
   }).then((response) => {
