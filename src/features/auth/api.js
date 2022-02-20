@@ -1,5 +1,5 @@
-import fetch, { fetchJson } from "../utils/fetch";
-import { setToken } from "../redux/authSlice";
+import fetch, { fetchJson } from "../../utils/fetch";
+import { setToken } from "./authSlice";
 import store from "../redux/store";
 
 // for some reason this parse cookies does not work
@@ -46,6 +46,11 @@ export async function add_user(data) {
 
 export async function delete_user(data) {
   const url = "api/auth/delete_user";
+  return fetchJson(url, data);
+}
+
+export async function user_exists(data) {
+  const url = "api/auth/user_exists";
   return fetchJson(url, data);
 }
 

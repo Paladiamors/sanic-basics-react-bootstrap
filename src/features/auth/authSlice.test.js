@@ -1,4 +1,4 @@
-import store from "./store.js";
+import store from "../redux/store.js";
 import { setToken, clearToken } from "./authSlice.js";
 
 test("token_test", (done) => {

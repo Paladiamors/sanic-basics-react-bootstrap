@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { selectUsername } from "./authSlice";
+import { selectUsername } from "../../redux/authSlice";
 import PropTypes from "prop-types";
 
 export default function Authenticated(props) {

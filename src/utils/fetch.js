@@ -1,6 +1,5 @@
-import store from "../redux/store.js";
+import store from "../features/redux/store.js";
 // import fetch from "node-fetch";
-import { setToken, clearToken } from "../redux/authSlice.js";
 
 // make the dev prefix configurable
 const devPrefix = "http://localhost:4000";
@@ -51,17 +50,4 @@ export async function fetchResponse(url, data) {
 
 export async function fetchJson(url, data) {
   return fetchResponse(url, data).then((response) => response.json());
-}
-
-// use this to perform a login into the system
-// the cookie is then saved to the store
-// use this for testing purposes
-export function login(url, email, password) {
-  fetch_(url, {
-    method: "POST",
-    body: JSON.stringify({ email, password }),
-  }).then((response) => {
-    const cookies = parseCookies(response);
-    store.dispatch(setToken(cookies));
-  });
 }

@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import Cookies from "js-cookie";
+import jwt from "jwt-decode";
 
 export const authSlice = createSlice({
   name: "auth",
@@ -23,6 +24,5 @@ export const authSlice = createSlice({
 export const { setToken, clearToken } = authSlice.actions;
 
 export default authSlice.reducer;
-
-// export const selectUsername = (state) => state.auth.username;
-// export const selectAdmin = (state) => state.auth.admin;
+export const selectUsername = (state) =>
+  state.auth.access_token ? jwt(state.auth.access_token).username : null;
