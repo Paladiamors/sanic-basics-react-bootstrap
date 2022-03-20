@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Alert from "react-bootstrap/Alert";
 import Container from "react-bootstrap/Container";
 import DynamicForm from "../../components/FormGenerator";
-import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   setUserInfo,
   resetAuthRedirect,
@@ -12,8 +12,8 @@ import {
 
 function Login(props) {
   const authRedirect = useSelector(selectAuthRedirect);
-  const state = useLocation().state || {};
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   var msg = undefined,
     redirect = undefined;
 
@@ -21,11 +21,6 @@ function Login(props) {
     console.log("authRedirect is", authRedirect);
     msg = authRedirect.msg;
     redirect = authRedirect.redirect;
-  }
-  if (state.msg && state.redirect) {
-    console.log("state is", state);
-    msg = state.msg;
-    redirect = state.redirect;
   }
   console.log("msg is", msg);
   const onSubmit = (data) => {
@@ -36,7 +31,7 @@ function Login(props) {
         })
       );
       dispatch(resetAuthRedirect());
-      props.history.push(redirect || "/");
+      navigate("/");
     }
   };
   const [visible, setVisible] = useState(true);
